@@ -3,6 +3,7 @@ using SmartCqrs.Domain.SeedWork;
 using SmartCqrs.Enumeration;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartCqrs.Domain.Models
 {
@@ -33,6 +34,7 @@ namespace SmartCqrs.Domain.Models
         /// 车型名称
         /// </summary>
         [Description("车型名称")]
+        [Column(Order = 2)]
         public string ModelName { get; set; }
 
         /// <summary>
@@ -42,9 +44,9 @@ namespace SmartCqrs.Domain.Models
         public decimal SalesPrice { get; set; }
 
         /// <summary>
-        /// 标签
+        /// 标签（只有一个）
         /// </summary>
-        [Description("标签")]
+        [Description("标签（只有一个）")]
         public string Tag { get; set; }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartCqrs.Enumeration;
@@ -10,9 +11,10 @@ using SmartCqrs.Repository;
 namespace SmartCqrs.Repository.Migrations
 {
     [DbContext(typeof(CarMarketDbContext))]
-    partial class CarMarketDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181130085800_ColumnOrder")]
+    partial class ColumnOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
