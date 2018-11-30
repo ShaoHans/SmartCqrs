@@ -140,7 +140,7 @@ namespace SmartCqrs.API
             services.AddSingleton<IAuthorizationHandler, CommonAuthorizeHandler>();
             services.AddDbContext<CarMarketDbContext>(options =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("CarDealerBang"));
+                options.UseNpgsql(Configuration.GetConnectionString("CarMarket"));
             });
             services.AddMediatR(typeof(PublishCarCommandHandler).GetTypeInfo().Assembly);
             services.AddScoped<IUnitOfWork, EfCoreUnitOfWork>();
@@ -148,7 +148,7 @@ namespace SmartCqrs.API
             services.AddTransient(typeof(IUserRepository), typeof(UserRepository));
             services.AddTransient(typeof(IUserAssetRepository), typeof(UserAssetRepository));
             services.AddSingleton<ILoggerManager, NLoggerManager>();
-            services.AddScoped(sp => { return new DapperContext(Configuration.GetConnectionString("CarDealerBang")); });
+            services.AddScoped(sp => { return new DapperContext(Configuration.GetConnectionString("CarMarket")); });
             services.AddTransient(typeof(ICarQuery), typeof(CarQuery));
             services.AddTransient(typeof(IUserQuery), typeof(UserQuery));
             services.Configure<CommonserviceUrlModel>(Configuration.GetSection("CommonserviceUrl"));

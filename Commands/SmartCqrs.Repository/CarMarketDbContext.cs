@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartCqrs.Domain.Models;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
@@ -8,7 +9,8 @@ namespace SmartCqrs.Repository
 {
     public class CarMarketDbContext : DbContext
     {
-        
+        public DbSet<Car> Cars { get; set; }
+
         public DbSet<CollectCar> CollectCars { get; set; }
 
         public DbSet<User> Users { get; set; }
@@ -67,6 +69,12 @@ namespace SmartCqrs.Repository
                 // Replace column names            
                 foreach (var property in entity.GetProperties())
                 {
+                    // 当类属性加上Description标注，可以当作数据库字段说明
+                    var desAttr = property.PropertyInfo.GetCustomAttribute<DescriptionAttribute>();
+                    if (desAttr != null)
+                    {
+                        property.Npgsql().Comment = desAttr.Description;
+                    }
                     property.Relational().ColumnName = property.Name.ToSnakeCase();
                 }
 

@@ -2,6 +2,7 @@
 using SmartCqrs.Domain.SeedWork;
 using SmartCqrs.Enumeration;
 using System;
+using System.ComponentModel;
 
 namespace SmartCqrs.Domain.Models
 {
@@ -10,85 +11,100 @@ namespace SmartCqrs.Domain.Models
     /// </summary>
     public class Car : Entity
     {
-
         /// <summary>
         /// 车品牌名称
         /// </summary>
+        [Description("车品牌名称")]
         public string BrandName { get; set; }
 
         /// <summary>
         /// 车系名称
         /// </summary>
+        [Description("车系名称")]
         public string SeriesName { get; set; }
 
         /// <summary>
         /// 车款式名称
         /// </summary>
+        [Description("车款式名称")]
         public string StyleName { get; set; }
 
         /// <summary>
         /// 车型名称
         /// </summary>
+        [Description("车型名称")]
         public string ModelName { get; set; }
 
         /// <summary>
         /// 售价
         /// </summary>
+        [Description("售价")]
         public decimal SalesPrice { get; set; }
 
         /// <summary>
         /// 标签
         /// </summary>
+        [Description("标签")]
         public string Tag { get; set; }
 
         /// <summary>
         /// 描述
         /// </summary>
+        [Description("描述")]
         public string Description { get; set; }
 
         /// <summary>
-        /// 车辆图片
+        /// 车辆图片，以jsonb格式存储
         /// </summary>
+        [Description("车辆图片，以jsonb格式存储")]
         public string Image { get; set; }
 
         /// <summary>
         /// 库存数量
         /// </summary>
+        [Description("库存数量")]
         public int StockQty { get; set; }
 
         /// <summary>
         /// 已售数量
         /// </summary>
+        [Description("已售数量")]
         public int SalesQty { get; set; }
 
         /// <summary>
         /// 浏览数量
         /// </summary>
+        [Description("浏览数量")]
         public int ViewCount { get; set; }
 
         /// <summary>
         /// 收藏数量
         /// </summary>
+        [Description("收藏数量")]
         public int CollectCount { get; set; }
 
         /// <summary>
         /// 产生的订单数量
         /// </summary>
+        [Description("产生的订单数量")]
         public int OrderCount { get; set; }
 
         /// <summary>
         /// 状态（1：售卖中，2：已下架，9：已删除）
         /// </summary>
+        [Description("状态（1：售卖中，2：已下架，9：已删除）")]
         public CarStatus Status { get; set; }
 
         /// <summary>
         /// 发布车辆用户Id
         /// </summary>
+        [Description("发布车辆用户Id")]
         public Guid UserId { get; set; }
 
         /// <summary>
         /// 发布时间
         /// </summary>
+        [Description("发布时间")]
         public DateTime PublishedTime { get; set; }
 
         public Car()
@@ -141,31 +157,6 @@ namespace SmartCqrs.Domain.Models
                 AddDomainEvent(new CarPublishedDomainEvent(this));
             }
         }
-        
-
-        /// <summary>
-        /// 复制车辆
-        /// </summary>
-        /// <returns></returns>
-        public Car Clone()
-        {
-            Car carSource = new Car();
-
-            carSource.BrandName = BrandName;
-            carSource.SeriesName = SeriesName;
-            carSource.StyleName = StyleName;
-            carSource.ModelName = ModelName;
-            carSource.SalesPrice = SalesPrice;
-            carSource.Tag = Tag;
-            carSource.Description = Description;
-            carSource.Image = Image;
-            carSource.StockQty = StockQty;
-            carSource.Status = CarStatus.Selling;
-            carSource.UserId = UserId;
-            carSource.PublishedTime = DateTime.Now;
-
-            return carSource;
-        }
 
         /// <summary>
         /// 重新发布
@@ -181,7 +172,7 @@ namespace SmartCqrs.Domain.Models
         }
 
         /// <summary>
-        /// 生成意向订单
+        /// 订单数量加1
         /// </summary>
         public void IncreaseOrderCount()
         {

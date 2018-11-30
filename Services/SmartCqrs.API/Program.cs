@@ -20,7 +20,7 @@ namespace SmartCqrs.API
             {
                 config.SetBasePath(Directory.GetCurrentDirectory());
             })
-            .UseUrls("http://*:8300")
+            .UseUrls("http://*:8800")
             .ConfigureLogging(logging =>
             {
                 //logging.ClearProviders(); // 可以清除所有记录log日志的提供者
