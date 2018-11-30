@@ -1,0 +1,70 @@
+﻿<!-- HTML for static distribution bundle build -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Swagger UI</title>
+    <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
+    <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" />
+    <style>
+      html
+      {
+        box-sizing: border-box;
+        overflow: -moz-scrollbars-vertical;
+        overflow-y: scroll;
+      }
+
+      *,
+      *:before,
+      *:after
+      {
+        box-sizing: inherit;
+      }
+
+      body
+      {
+        margin:0;
+        background: #fafafa;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="swagger-ui"></div>
+
+    <script src="./swagger-ui-bundle.js"> </script>
+    <script src="./swagger-ui-standalone-preset.js"> </script>
+    <script>
+        // 获取当前url中swagger字符串之前的部分，这么做是因为测试环境是通过api网关访问当前api项目的接口，导致无法
+        // 访问/swagger/v1/swagger.json文件，故在此做一次拼接
+        function getUrlRelativePath() 　　{
+            var url = document.location.toString();
+            var arrUrl = url.split("swagger");
+            return arrUrl[0];
+        }
+
+        window.onload = function () {
+            var path = getUrlRelativePath();
+
+            // Build a system
+            const ui = SwaggerUIBundle({
+                //url: "/swagger/v1/swagger.json",
+                urls: [{ url: path + "swagger/v1/swagger.json", name: "v1" }],
+                dom_id: '#swagger-ui',
+                deepLinking: true,
+                presets: [
+                    SwaggerUIBundle.presets.apis,
+                    SwaggerUIStandalonePreset
+                ],
+                plugins: [
+                    SwaggerUIBundle.plugins.DownloadUrl,
+                ],
+                layout: "StandaloneLayout"
+            });
+
+            window.ui = ui;
+        }
+  </script>
+  </body>
+</html>

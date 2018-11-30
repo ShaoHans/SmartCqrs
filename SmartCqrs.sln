@@ -3,9 +3,76 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks", "BuildingBlocks", "{2C74DC26-16FB-403E-B7FE-3F3ECF6996F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commands", "Commands", "{DA96469B-677D-4118-A626-0E203E56703D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Queries", "Queries", "{56D0F2E0-F84B-4A78-ADA8-7646A8D20A37}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{11AAB38B-557A-4F99-A6B8-B9EB76B5B558}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{40C457D0-F323-4C5E-ADED-8FEE1932DB9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCqrs.Infrastructure", "BuildingBlocks\SmartCqrs.Infrastructure\SmartCqrs.Infrastructure.csproj", "{7F82016E-A521-4116-B9C1-90AEBF1DEC30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCqrs.Enumeration", "BuildingBlocks\SmartCqrs.Enumeration\SmartCqrs.Enumeration.csproj", "{C03852D2-59FE-41C5-8A63-614475EEC28D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCqrs.Application", "Commands\SmartCqrs.Application\SmartCqrs.Application.csproj", "{7753080E-2CD2-437C-8058-0F3FB28C1E14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCqrs.Domain", "Commands\SmartCqrs.Domain\SmartCqrs.Domain.csproj", "{E2A965FD-B57D-4515-A8CE-5B605273E6BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCqrs.Repository", "Commands\SmartCqrs.Repository\SmartCqrs.Repository.csproj", "{EAD729F4-3BD3-4520-A611-EA169993DF2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCqrs.Query", "Queries\SmartCqrs.Query\SmartCqrs.Query.csproj", "{C7CEDCF5-33E4-4940-8018-9D126BCD46D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartCqrs.API", "Services\SmartCqrs.API\SmartCqrs.API.csproj", "{10567719-DA9D-4976-AADB-C2AE23DA4C81}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F82016E-A521-4116-B9C1-90AEBF1DEC30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F82016E-A521-4116-B9C1-90AEBF1DEC30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F82016E-A521-4116-B9C1-90AEBF1DEC30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F82016E-A521-4116-B9C1-90AEBF1DEC30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C03852D2-59FE-41C5-8A63-614475EEC28D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C03852D2-59FE-41C5-8A63-614475EEC28D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C03852D2-59FE-41C5-8A63-614475EEC28D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C03852D2-59FE-41C5-8A63-614475EEC28D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7753080E-2CD2-437C-8058-0F3FB28C1E14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7753080E-2CD2-437C-8058-0F3FB28C1E14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7753080E-2CD2-437C-8058-0F3FB28C1E14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7753080E-2CD2-437C-8058-0F3FB28C1E14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2A965FD-B57D-4515-A8CE-5B605273E6BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2A965FD-B57D-4515-A8CE-5B605273E6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2A965FD-B57D-4515-A8CE-5B605273E6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2A965FD-B57D-4515-A8CE-5B605273E6BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD729F4-3BD3-4520-A611-EA169993DF2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD729F4-3BD3-4520-A611-EA169993DF2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD729F4-3BD3-4520-A611-EA169993DF2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD729F4-3BD3-4520-A611-EA169993DF2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7CEDCF5-33E4-4940-8018-9D126BCD46D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7CEDCF5-33E4-4940-8018-9D126BCD46D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7CEDCF5-33E4-4940-8018-9D126BCD46D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7CEDCF5-33E4-4940-8018-9D126BCD46D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10567719-DA9D-4976-AADB-C2AE23DA4C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10567719-DA9D-4976-AADB-C2AE23DA4C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10567719-DA9D-4976-AADB-C2AE23DA4C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10567719-DA9D-4976-AADB-C2AE23DA4C81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7F82016E-A521-4116-B9C1-90AEBF1DEC30} = {2C74DC26-16FB-403E-B7FE-3F3ECF6996F0}
+		{C03852D2-59FE-41C5-8A63-614475EEC28D} = {2C74DC26-16FB-403E-B7FE-3F3ECF6996F0}
+		{7753080E-2CD2-437C-8058-0F3FB28C1E14} = {DA96469B-677D-4118-A626-0E203E56703D}
+		{E2A965FD-B57D-4515-A8CE-5B605273E6BF} = {DA96469B-677D-4118-A626-0E203E56703D}
+		{EAD729F4-3BD3-4520-A611-EA169993DF2F} = {DA96469B-677D-4118-A626-0E203E56703D}
+		{C7CEDCF5-33E4-4940-8018-9D126BCD46D3} = {56D0F2E0-F84B-4A78-ADA8-7646A8D20A37}
+		{10567719-DA9D-4976-AADB-C2AE23DA4C81} = {11AAB38B-557A-4F99-A6B8-B9EB76B5B558}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7FBA1B3-67B8-4B98-BAC4-25B402628693}
