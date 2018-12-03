@@ -53,24 +53,6 @@ namespace SmartCqrs.API.Controllers
             return Ok(new CommandResult<UserFullDetailVm>(data: user));
         }
 
-        
-        /// <summary>
-        /// 获取指定用户发布的车源
-        /// </summary>
-        /// <param name="userId">用户Id</param>
-        /// <param name="pageSize"></param>
-        /// <param name="pageNumber"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("published/carsource")]
-        [ProducesResponseType(typeof(CommandResult<PagedData<CarListVm>>), (int)ResultCode.SUCCESS)]
-        [AllowAnonymous]
-        public async Task<IActionResult> GetUserPublishedCarSource(Guid userId, int pageSize = 10, int pageNumber = 1)
-        {
-            var pagedData = await _carQuery.GetPagedDataAsync(new CarSourcePagedRequest { UserId = userId, PageSize = pageSize, PageNumber = pageNumber });
-            return Ok(new CommandResult<PagedData<CarListVm>>(data: pagedData));
-        }
-
         #endregion
 
         #region 增删改

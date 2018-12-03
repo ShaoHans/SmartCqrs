@@ -1,7 +1,9 @@
-﻿using SmartCqrs.Domain.Models;
-using SmartCqrs.Domain.SeedWork;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
+using SmartCqrs.Domain.Models;
+using SmartCqrs.Domain.SeedWork;
 
 namespace SmartCqrs.Domain.Repositories
 {

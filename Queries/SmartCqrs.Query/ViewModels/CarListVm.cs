@@ -57,18 +57,18 @@ namespace SmartCqrs.Query.ViewModels
         /// <summary>
         /// 状态（1：售卖中，2：已下架，9：已删除）
         /// </summary>
-        public CarStatus Status { get; set; }
+        //public CarStatus Status { get; set; }
 
         /// <summary>
         /// 状态名称
         /// </summary>
-        public string StatusName
-        {
-            get
-            {
-                return Status.ToDescription();
-            }
-        }
+        //public string StatusName
+        //{
+        //    get
+        //    {
+        //        return Status.ToDescription();
+        //    }
+        //}
 
         /// <summary>
         /// 车辆主图

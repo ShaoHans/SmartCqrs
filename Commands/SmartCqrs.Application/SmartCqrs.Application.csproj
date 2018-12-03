@@ -18,4 +18,8 @@
     <ProjectReference Include="..\SmartCqrs.Domain\SmartCqrs.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DomainEventHandlers\UserRegisted\" />
+  </ItemGroup>
+
 </Project>

@@ -29,11 +29,11 @@ namespace SmartCqrs.Application.Commands
 
     public abstract class BaseCommandHandler
     {
-        public IUnitOfWork Uow { get; }
+        public IUnitOfWork UnitOfWork { get; }
 
         public BaseCommandHandler(IUnitOfWork uow)
         {
-            Uow = uow;
+            UnitOfWork = uow;
         }
 
         public async Task<CommandResult> ValidateCommand<TCommand>(TCommand request, AbstractValidator<TCommand> validator)

@@ -7,7 +7,7 @@ namespace SmartCqrs.Repository
 {
     static class MediatorExtension
     {
-        public static async Task DispatchDomainEventsAsync(this IMediator mediator, CarMarketDbContext ctx)
+        public static async Task DispatchDomainEventsAsync(this IMediator mediator, SmartBlogDbContext ctx)
         {
             var domainEntities = ctx.ChangeTracker
                 .Entries<Entity>()

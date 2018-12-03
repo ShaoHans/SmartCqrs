@@ -13,14 +13,11 @@ namespace SmartCqrs.Application.Commands
     public class UpdateUserInfoCommandHandler : BaseCommandHandler<UpdateUserInfoCommand>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IRepository<SysConfig> _sysConfigRepository;
 
         public UpdateUserInfoCommandHandler(IUnitOfWork uow, 
-            IUserRepository userRepository,
-            IRepository<SysConfig> sysConfigRepository) : base(uow)
+            IUserRepository userRepository) : base(uow)
         {
             _userRepository = userRepository;
-            _sysConfigRepository = sysConfigRepository;
         }
 
         public override async Task<CommandResult> Handle(UpdateUserInfoCommand request, CancellationToken cancellationToken)
@@ -35,7 +32,7 @@ namespace SmartCqrs.Application.Commands
             request.UserPatch.ApplyTo(userDto);
             Mapper.Map(userDto, user);
             await _userRepository.UpdateAsync(user);
-            await Uow.SaveChangesAsync();
+            await UnitOfWork.SaveChangesAsync();
 
             return new CommandResult();
         }

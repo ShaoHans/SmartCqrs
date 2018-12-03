@@ -52,7 +52,7 @@ namespace SmartCqrs.Application.Commands
 
             user.Login();
             await _userRepository.UpdateAsync(user);
-            await Uow.SaveChangesAsync();
+            await UnitOfWork.SaveChangesAsync();
             return new CommandResult<LoginDto>(data: new LoginDto { IsNewRegister = false, AccessToken = tokenResult.Data });
         }
     }

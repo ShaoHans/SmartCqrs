@@ -31,7 +31,7 @@ namespace SmartCqrs.Query.ViewModels
         /// <summary>
         /// 订单状态
         /// </summary>
-        public OrderStatus Status { get; set; }
+        //public OrderStatus Status { get; set; }
 
         /// <summary>
         /// 用户Id

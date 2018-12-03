@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartCqrs.Domain.Models;
 
@@ -9,13 +12,11 @@ namespace SmartCqrs.Repository.EntityConfigurations
         public void Configure(EntityTypeBuilder<UserAsset> builder)
         {
             builder.ToTable("user_asset");
-            builder.HasKey(x => x.Id);
 
             builder.Property(x => x.UserId).IsRequired();
-            builder.Property(x => x.SellingCarCount).IsRequired();
-            builder.Property(x => x.CollectCarCount).IsRequired();
-            builder.Property(x => x.OrderCount).IsRequired();
-            builder.Property(x => x.UpdatedTime).IsRequired();
+            builder.Property(x => x.TotalPoint).IsRequired();
+            builder.Property(x => x.PublishBlogCount).IsRequired();
+            builder.Property(x => x.CollectBlogCount).IsRequired();
         }
     }
 }

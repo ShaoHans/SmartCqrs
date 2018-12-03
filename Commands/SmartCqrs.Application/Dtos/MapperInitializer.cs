@@ -20,9 +20,9 @@ namespace SmartCqrs.Application.Dtos
                 //.ReverseMap()
                 //.ForPath(des => des.CarBrand, opt => opt.MapFrom(src => JsonConvert.SerializeObject(src.CarBrands)));
 
-                cfg.CreateMap<PublishCarCommand, Car>()
-                //.ForMember(des => des.Color, opt => opt.MapFrom(src => JsonConvert.SerializeObject(src.Colors)))
-                .ForMember(des => des.Image, opt => opt.MapFrom(src => JsonConvert.SerializeObject(src.Images)));
+                //cfg.CreateMap<PublishCarCommand, Car>()
+                ////.ForMember(des => des.Color, opt => opt.MapFrom(src => JsonConvert.SerializeObject(src.Colors)))
+                //.ForMember(des => des.Image, opt => opt.MapFrom(src => JsonConvert.SerializeObject(src.Images)));
             });
         }
     }

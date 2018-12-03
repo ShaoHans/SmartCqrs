@@ -5,18 +5,18 @@ using System.Text;
 namespace SmartCqrs.Enumeration
 {
     /// <summary>
-    /// 用户状态
+    /// 积分任务类别
     /// </summary>
-    public enum UserStatus
+    public enum PointTaskType
     {
         /// <summary>
-        /// 有效
+        /// 注册
         /// </summary>
-        Actived = 0,
+        Registed = 0,
 
         /// <summary>
-        /// 已删除
+        /// 发布博客文章
         /// </summary>
-        Deleted = 9
+        PublishBlog = 1
     }
 }

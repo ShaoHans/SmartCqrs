@@ -7,7 +7,7 @@ namespace SmartCqrs.Repository.Repositories
 {
     public class UserRepository : EfCoreRepositoryBase<User>, IUserRepository
     {
-        public UserRepository(CarMarketDbContext dbContext) : base(dbContext)
+        public UserRepository(SmartBlogDbContext dbContext) : base(dbContext)
         {
         }
 

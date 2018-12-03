@@ -1,83 +1,62 @@
-﻿using SmartCqrs.Domain.Events;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using SmartCqrs.Domain.Events;
 using SmartCqrs.Domain.SeedWork;
-using System;
+using SmartCqrs.Enumeration;
 
 namespace SmartCqrs.Domain.Models
 {
-    /// <summary>
-    /// 用户资产信息
-    /// </summary>
-    public class UserAsset: Entity
+    public class UserAsset : Entity
     {
         /// <summary>
-        /// 用户Id
+        /// 用户uuid
         /// </summary>
         public Guid UserId { get; set; }
 
         /// <summary>
-        /// 在售车辆数量
+        /// 总积分
         /// </summary>
-        public int SellingCarCount { get; set; }
+        public int TotalPoint { get; set; }
 
         /// <summary>
-        /// 收藏车数量
+        /// 发布的博客文章数量
         /// </summary>
-        public int CollectCarCount { get; set; }
+        public int PublishBlogCount { get; set; }
 
         /// <summary>
-        /// 订单数量
+        /// 收藏的博客文章数量
         /// </summary>
-        public int OrderCount { get; set; }
-
-        public DateTime UpdatedTime { get; set; }
+        public int CollectBlogCount { get; set; }
 
         #region 领域方法
 
-        public void Init(Guid userId)
+        /// <summary>
+        /// 用户发布的博客数量加1
+        /// </summary>
+        public void IncreasePublishBlogCount()
         {
-            UserId = userId;
-            UpdatedTime = DateTime.Now;
+            PublishBlogCount += 1;
+
+            // 用户发布了博客后给其添加积分
+            AddDomainEvent(new UserPointTaskHappenedDomainEvent(UserId, PointTaskType.PublishBlog));
         }
 
         /// <summary>
-        /// 车收藏数量加1
+        /// 增加积分
         /// </summary>
-        public void IncreaseCollectCount()
+        /// <param name="point"></param>
+        public void AddPoint(int point)
         {
-            CollectCarCount += 1;
-            UpdatedTime = DateTime.Now;
+            TotalPoint += point;
         }
 
         /// <summary>
-        /// 车收藏数量加1
+        /// 用户收藏的博客数量加1
         /// </summary>
-        public void DecreaseCollectCount()
+        public void IncreaseCollectBlogCount()
         {
-            CollectCarCount -= 1;
-            UpdatedTime = DateTime.Now;
-        }
-
-        /// <summary>
-        /// 更新在售车辆数量
-        /// </summary>
-        /// <param name="qty"></param>
-        public void UpdateSellingCarCount(int qty)
-        {
-            SellingCarCount += qty;
-            if (SellingCarCount < 0)
-            {
-                SellingCarCount = 0;
-            }
-            UpdatedTime = DateTime.Now;
-        }
-
-        /// <summary>
-        /// 订单数量加1
-        /// </summary>
-        public void IncreaseOrderCount()
-        {
-            OrderCount += 1;
-            UpdatedTime = DateTime.Now;
+            CollectBlogCount += 1;
         }
 
         #endregion

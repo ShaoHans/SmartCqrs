@@ -2,6 +2,7 @@
 using SmartCqrs.Domain.SeedWork;
 using SmartCqrs.Enumeration;
 using System;
+using System.ComponentModel;
 
 namespace SmartCqrs.Domain.Models
 {
@@ -33,14 +34,9 @@ namespace SmartCqrs.Domain.Models
         public string NickName { get; set; }
 
         /// <summary>
-        /// 真实姓名
-        /// </summary>
-        public string RealName { get; set; }
-
-        /// <summary>
         /// 头像Url
         /// </summary>
-        public string Avatar { get; set; }
+        public string AvatarUrl { get; set; }
 
         /// <summary>
         /// 省份名称
@@ -72,6 +68,8 @@ namespace SmartCqrs.Domain.Models
         /// </summary>
         public UserStatus Status { get; set; }
 
+        
+
         #endregion
 
         #region 领域方法
@@ -88,9 +86,13 @@ namespace SmartCqrs.Domain.Models
             RegisterTime = DateTime.Now;
             Status = UserStatus.Actived;
 
-            AddDomainEvent(new UserRegistedDomainEvent(this));
+            // 新注册用户添加积分
+            AddDomainEvent(new UserPointTaskHappenedDomainEvent(UserId, PointTaskType.Registed));
         } 
 
+        /// <summary>
+        /// 登录
+        /// </summary>
         public void Login()
         {
             LastLoginTime = DateTime.Now;
@@ -122,7 +124,7 @@ namespace SmartCqrs.Domain.Models
         /// <returns></returns>
         public bool CanLogin()
         {
-            return Status == UserStatus.Deleted;
+            return Status != UserStatus.Deleted;
         }
 
         #endregion

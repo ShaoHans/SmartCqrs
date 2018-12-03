@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using SmartCqrs.Domain.Models;
 using SmartCqrs.Domain.Repositories;
@@ -7,14 +9,14 @@ namespace SmartCqrs.Repository.Repositories
 {
     public class UserAssetRepository : EfCoreRepositoryBase<UserAsset>, IUserAssetRepository
     {
-        public UserAssetRepository(CarMarketDbContext dbContext) : base(dbContext)
+        public UserAssetRepository(SmartBlogDbContext dbContext) : base(dbContext)
         {
         }
 
         public UserAsset GetOrCreate(Guid userId)
         {
             UserAsset userAsset = FirstOrDefault(u => u.UserId == userId);
-            if(userAsset == null)
+            if (userAsset == null)
             {
                 return new UserAsset
                 {

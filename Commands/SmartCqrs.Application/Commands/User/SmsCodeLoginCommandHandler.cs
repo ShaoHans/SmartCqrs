@@ -37,11 +37,11 @@ namespace SmartCqrs.Application.Commands
             }
 
             // 调用公共服务接口对验证码进行校验
-            cmdResult = await _commonServiceClient.ValidateSmsCode(5, request.Mobile, request.SmsCode);
-            if(!cmdResult.Success)
-            {
-                return new CommandResult<LoginDto>(cmdResult.Code, cmdResult.Message);
-            }
+            //cmdResult = await _commonServiceClient.ValidateSmsCode(5, request.Mobile, request.SmsCode);
+            //if(!cmdResult.Success)
+            //{
+            //    return new CommandResult<LoginDto>(cmdResult.Code, cmdResult.Message);
+            //}
 
             LoginDto loginDto = new LoginDto();
             User user = await _userRepository.GetByMobileAsync(request.Mobile);
@@ -67,14 +67,14 @@ namespace SmartCqrs.Application.Commands
             }
 
             // 调用授权服务获取用户token，返回给客户端
-            var tokenResult = await _authServiceClient.GetUserToken(user.Id, user.UserId, user.NickName, user.Mobile, user.Status.ToInt32());
-            if (!tokenResult.Success)
-            {
-                return new CommandResult<LoginDto>(tokenResult.Code, tokenResult.Message);
-            }
+            //var tokenResult = await _authServiceClient.GetUserToken(user.Id, user.UserId, user.NickName, user.Mobile, user.Status.ToInt32());
+            //if (!tokenResult.Success)
+            //{
+            //    return new CommandResult<LoginDto>(tokenResult.Code, tokenResult.Message);
+            //}
 
-            await Uow.SaveChangesAsync();
-            loginDto.AccessToken = tokenResult.Data;
+            await UnitOfWork.SaveChangesAsync();
+            //loginDto.AccessToken = tokenResult.Data;
             return new CommandResult<LoginDto>(data: loginDto);
         }
     }

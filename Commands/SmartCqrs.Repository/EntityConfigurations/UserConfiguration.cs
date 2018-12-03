@@ -9,14 +9,13 @@ namespace SmartCqrs.Repository.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("userinfo");
+            builder.ToTable("user_info");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.UserId).IsRequired();
             builder.Property(x => x.Mobile).HasColumnType("varchar(16)").IsRequired();
             builder.Property(x => x.Password).HasColumnType("varchar(40)");
             builder.Property(x => x.NickName).HasColumnType("varchar(20)");
-            builder.Property(x => x.RealName).HasColumnType("varchar(20)");
-            builder.Property(x => x.Avatar).HasColumnType("varchar(512)");
+            builder.Property(x => x.AvatarUrl).HasColumnType("varchar(512)");
             builder.Property(x => x.ProvinceName).HasColumnType("varchar(36)");
             builder.Property(x => x.CityName).HasColumnType("varchar(36)");
             builder.Property(x => x.RegisterTime).IsRequired();

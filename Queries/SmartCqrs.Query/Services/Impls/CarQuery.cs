@@ -20,7 +20,7 @@ namespace SmartCqrs.Query.Services.Impls
         public async Task<CarDetailVm> GetDetailAsync(int carSourceId)
         {
             return await _dbContext.QueryFirstOrDefaultAsync<CarDetailVm>($"select id car_id, * from car where id = @Id " +
-                $"and status != {CarStatus.Deleted.ToInt32()}", new { Id = carSourceId });
+                $"and status != {1}", new { Id = carSourceId });
         }
 
         public async Task<PagedData<CarListVm>> GetPagedDataAsync(CarSourcePagedRequest request)
@@ -29,7 +29,7 @@ namespace SmartCqrs.Query.Services.Impls
             sql.AppendLine($@"select 
                         id car_id,brand_name,series_name,style_name,model_name,sales_price,
                         tag,image,status,user_id
-                        from car where status != {CarStatus.Deleted.ToInt32()} ");
+                        from car where status != {1} ");
             string where = request.GenerateWhereSql();
             if(!string.IsNullOrWhiteSpace(where))
             {

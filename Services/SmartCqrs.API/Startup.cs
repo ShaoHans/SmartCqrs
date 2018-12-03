@@ -138,17 +138,17 @@ namespace SmartCqrs.API
                 });
 
             services.AddSingleton<IAuthorizationHandler, CommonAuthorizeHandler>();
-            services.AddDbContext<CarMarketDbContext>(options =>
+            services.AddDbContext<SmartBlogDbContext>(options =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("CarMarket"));
+                options.UseNpgsql(Configuration.GetConnectionString("SmartBlog"));
             });
-            services.AddMediatR(typeof(PublishCarCommandHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(BaseCommandHandler).GetTypeInfo().Assembly);
             services.AddScoped<IUnitOfWork, EfCoreUnitOfWork>();
             services.AddTransient(typeof(IRepository<>), typeof(EfCoreRepositoryBase<>));
             services.AddTransient(typeof(IUserRepository), typeof(UserRepository));
             services.AddTransient(typeof(IUserAssetRepository), typeof(UserAssetRepository));
             services.AddSingleton<ILoggerManager, NLoggerManager>();
-            services.AddScoped(sp => { return new DapperContext(Configuration.GetConnectionString("CarMarket")); });
+            services.AddScoped(sp => { return new DapperContext(Configuration.GetConnectionString("SmartBlog")); });
             services.AddTransient(typeof(ICarQuery), typeof(CarQuery));
             services.AddTransient(typeof(IUserQuery), typeof(UserQuery));
             services.Configure<CommonserviceUrlModel>(Configuration.GetSection("CommonserviceUrl"));
@@ -215,9 +215,9 @@ namespace SmartCqrs.API
             {
                 var services = scope.ServiceProvider;
                 var logger = services.GetRequiredService<ILoggerManager>();
-                var context = services.GetService<CarMarketDbContext>();
+                var context = services.GetService<SmartBlogDbContext>();
 
-                new CarMarketDbContextSeed().SeedAsync(context, logger).Wait();
+                new SmartBlogDbContextSeed().SeedAsync(context, logger).Wait();
             }
         }
     }

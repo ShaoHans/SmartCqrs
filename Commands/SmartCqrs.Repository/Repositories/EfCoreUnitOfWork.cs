@@ -7,14 +7,14 @@ namespace SmartCqrs.Repository.Repositories
 {
     public class EfCoreUnitOfWork : IUnitOfWork, IDisposable
     {
-        private CarMarketDbContext _dbContext;
+        private SmartBlogDbContext _dbContext;
         private IMediator _mediator;
 
         public EfCoreUnitOfWork()
         {
         }
 
-        public EfCoreUnitOfWork(CarMarketDbContext dbContext, IMediator mediator)
+        public EfCoreUnitOfWork(SmartBlogDbContext dbContext, IMediator mediator)
         {
             _dbContext = dbContext;
             _mediator = mediator;

@@ -12,9 +12,9 @@ namespace SmartCqrs.Repository.Repositories
 {
     public class EfCoreRepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey> where TEntity : Entity<TPrimaryKey>, new()
     {
-        private CarMarketDbContext _dbContext;
+        private SmartBlogDbContext _dbContext;
 
-        public EfCoreRepositoryBase(CarMarketDbContext dbContext)
+        public EfCoreRepositoryBase(SmartBlogDbContext dbContext)
         {
             _dbContext = dbContext;
         }
