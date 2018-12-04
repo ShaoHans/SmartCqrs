@@ -1,4 +1,8 @@
-﻿namespace SmartCqrs.API.ConfigModels
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SmartCqrs.Infrastructure.Configuration
 {
     public class IdentityServer
     {
@@ -6,5 +10,6 @@
         public string AuthTokenUrl { get; set; }
         public string ClientId { get; set; }
         public string ClientSecret { get; set; }
+        public string JwtSecurityKey { get; set; }
     }
 }

@@ -42,5 +42,14 @@ namespace System
             }
         }
 
+        public static Guid ToGuid(this string input)
+        {
+            if(!Guid.TryParse(input,out Guid result))
+            {
+                throw new InvalidCastException($"{input}转换为Guid类型失败");
+            }
+            return result;
+        }
+
     }
 }

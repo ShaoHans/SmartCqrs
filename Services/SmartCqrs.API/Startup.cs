@@ -20,7 +20,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using SmartCqrs.API.ConfigModels;
 using SmartCqrs.API.Filters;
 using SmartCqrs.Application.Commands;
 using SmartCqrs.Application.Dtos;
@@ -28,6 +27,7 @@ using SmartCqrs.Domain.Repositories;
 using SmartCqrs.Domain.SeedWork;
 using SmartCqrs.Infrastructure.Auth;
 using SmartCqrs.Infrastructure.CommonServices;
+using SmartCqrs.Infrastructure.Configuration;
 using SmartCqrs.Infrastructure.DapperEx;
 using SmartCqrs.Infrastructure.Log;
 using SmartCqrs.Query.Services;
@@ -59,6 +59,8 @@ namespace SmartCqrs.API
                 // API接口返回日期时间类型的数据时使用自定义格式化
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
+
+            services.Configure<AppSettings>(Configuration);
 
             #region WebApi版本控制及Swagger文档
 
@@ -115,29 +117,27 @@ namespace SmartCqrs.API
 
             #endregion
 
-
             // 参考文章：https://www.cnblogs.com/RainingNight/p/jwtbearer-authentication-in-asp-net-core.html
-            services.AddAuthorization(x =>
-            {
-                #region 自定义验证策略
-                JWTHelper.SecurityKey = Configuration.GetSection("IdentityServer:JwtSecurityKey").Value;
-                x.AddPolicy("user", policy => policy.Requirements.Add(new CommonAuthorize()));
-                #endregion
-            })
-                .AddAuthentication(x =>
+            services.AddAuthentication(x =>
                 {
-                    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
                 .AddJwtBearer(o =>
                 {
+                    var identityServer = new IdentityServer();
+                    Configuration.GetSection("IdentityServer").Bind(identityServer);
                     //设置需要验证的项目
                     o.TokenValidationParameters = new TokenValidationParameters
                     {
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTHelper.SecurityKey))
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(identityServer.JwtSecurityKey)),
+                        ValidAudience = "api",
+                        ValidIssuer = "test"
                     };
                 });
 
-            services.AddSingleton<IAuthorizationHandler, CommonAuthorizeHandler>();
+            //services.AddSingleton<IAuthorizationHandler, CommonAuthorizeHandler>();
             services.AddDbContext<SmartBlogDbContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetConnectionString("SmartBlog"));
@@ -153,13 +153,13 @@ namespace SmartCqrs.API
             services.AddTransient(typeof(IUserQuery), typeof(UserQuery));
             services.Configure<CommonserviceUrlModel>(Configuration.GetSection("CommonserviceUrl"));
             //服务授权对象
-            services.AddSingleton<IServiceAuthorization, ServiceAuthorization>(a =>
-            {
-                Debug.WriteLine("注入服务授权对象");
-                var _ConfigModelIdentityServer = new IdentityServer();
-                Configuration.GetSection("IdentityServer").Bind(_ConfigModelIdentityServer);
-                return new ServiceAuthorization($"{_ConfigModelIdentityServer.AuthTokenUrl}api/auth/", _ConfigModelIdentityServer.ClientId, _ConfigModelIdentityServer.ClientSecret);
-            });
+            //services.AddSingleton<IServiceAuthorization, ServiceAuthorization>(a =>
+            //{
+            //    Debug.WriteLine("注入服务授权对象");
+            //    var _ConfigModelIdentityServer = new IdentityServer();
+            //    Configuration.GetSection("IdentityServer").Bind(_ConfigModelIdentityServer);
+            //    return new ServiceAuthorization($"{_ConfigModelIdentityServer.AuthTokenUrl}api/auth/", _ConfigModelIdentityServer.ClientId, _ConfigModelIdentityServer.ClientSecret);
+            //});
             MapperInitializer.Init();
 
             services.AddHttpClient();
@@ -171,6 +171,8 @@ namespace SmartCqrs.API
             {
                 client.BaseAddress = new Uri(Configuration.GetSection("IdentityServer:AuthTokenUrl").Value);
             });
+
+            services.AddTransient<IJwtService, JwtService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -201,8 +203,8 @@ namespace SmartCqrs.API
 
             DbContextSeed(app);
             //app.UseHttpsRedirection();
-            app.UseMvc();
             app.UseAuthentication();
+            app.UseMvc();
         }
 
         /// <summary>

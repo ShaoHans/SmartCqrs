@@ -16,7 +16,6 @@ namespace SmartCqrs.Application.Validations
             RuleFor(r => r.Content).MaximumLength(1000)
                 .When(r => { return !string.IsNullOrWhiteSpace(r.Content); })
                 .WithMessage("评论内容长度不能超过1000个字符");
-            
         }
     }
 }

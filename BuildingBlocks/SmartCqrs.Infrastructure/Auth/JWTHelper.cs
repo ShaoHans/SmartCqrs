@@ -93,8 +93,6 @@ namespace SmartCqrs.Infrastructure.Auth
         public string Sub { get; set; }
         public long Created { get; set; }
         public string Nickname { get; set; }
-        public string Name { get; set; }
-        public int Id { get; set; }
         public long Exp { get; set; }
 
         /// <summary>

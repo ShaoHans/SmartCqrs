@@ -6,6 +6,7 @@ using SmartCqrs.Application.Validations;
 using SmartCqrs.Domain.Models;
 using SmartCqrs.Domain.Repositories;
 using SmartCqrs.Domain.SeedWork;
+using SmartCqrs.Infrastructure.Auth;
 using SmartCqrs.Infrastructure.CommonServices;
 using SmartCqrs.Infrastructure.Results;
 
@@ -13,18 +14,14 @@ namespace SmartCqrs.Application.Commands
 {
     public class SmsCodeLoginCommandHandler : BaseCommandHandler<SmsCodeLoginCommand, LoginDto>
     {
-        private readonly TongHangBrokerAuthServiceClient _authServiceClient;
-        private readonly TongHangBrokerCommonServiceClient _commonServiceClient;
         private readonly IUserRepository _userRepository;
-
+        private readonly IJwtService _jwtService;
         public SmsCodeLoginCommandHandler(IUnitOfWork uow,
-            TongHangBrokerAuthServiceClient authServiceClient,
-            TongHangBrokerCommonServiceClient commonServiceClient,
-            IUserRepository userRepository) : base(uow)
+            IUserRepository userRepository,
+            IJwtService jwtService) : base(uow)
         {
-            _authServiceClient = authServiceClient;
-            _commonServiceClient = commonServiceClient;
             _userRepository = userRepository;
+            _jwtService = jwtService;
         }
 
         public async override Task<CommandResult<LoginDto>> Handle(SmsCodeLoginCommand request, CancellationToken cancellationToken)
@@ -74,8 +71,7 @@ namespace SmartCqrs.Application.Commands
             //}
 
             await UnitOfWork.SaveChangesAsync();
-            //UnitOfWork.SaveChanges();
-            //loginDto.AccessToken = tokenResult.Data;
+            loginDto.AccessToken = _jwtService.GenerateToken(new ClientUser { Sub = user.Mobile, UUID = user.UserId ,Nickname = user.NickName});
             return new CommandResult<LoginDto>(data: loginDto);
         }
     }

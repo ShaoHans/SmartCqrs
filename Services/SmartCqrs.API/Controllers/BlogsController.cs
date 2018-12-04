@@ -28,7 +28,6 @@ namespace SmartCqrs.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("publish")]
-        [AllowAnonymous]
         public async Task<IActionResult> Publish([FromForm]PublishBlogCommand command)
         {
             command.LoginUserId = ClientUser.UUID;
@@ -43,7 +42,6 @@ namespace SmartCqrs.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("edit")]
-        [AllowAnonymous]
         public async Task<IActionResult> Edit([FromForm]EditBlogCommand command)
         {
             command.LoginUserId = ClientUser.UUID;
@@ -58,7 +56,6 @@ namespace SmartCqrs.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("collect")]
-        [AllowAnonymous]
         public async Task<IActionResult> Collect([FromForm]CollectBlogCommand command)
         {
             command.LoginUserId = ClientUser.UUID;
@@ -73,7 +70,6 @@ namespace SmartCqrs.API.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("comment")]
-        [AllowAnonymous]
         public async Task<IActionResult> Comment([FromForm]CommentBlogCommand command)
         {
             command.LoginUserId = ClientUser.UUID;

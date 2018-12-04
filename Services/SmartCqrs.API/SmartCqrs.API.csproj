@@ -34,4 +34,10 @@
     <ProjectReference Include="..\..\Queries\SmartCqrs.Query\SmartCqrs.Query.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="nlog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
