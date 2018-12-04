@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using SmartCqrs.Domain.Events;
 using SmartCqrs.Domain.SeedWork;
+using SmartCqrs.Enumeration;
 
 namespace SmartCqrs.Domain.Models
 {
@@ -73,8 +74,10 @@ namespace SmartCqrs.Domain.Models
             UserId = userId;
             CreatedTime = DateTime.Now;
 
-            // 博客发表之后触发相关领域事件（如：用户发布的博客总数量加1，增加用户积分等）
+            // 用户发布的博客总数量加1
             AddDomainEvent(new BlogPublishedDomainEvent(this));
+            // 用户发布了博客后给其添加积分
+            AddDomainEvent(new UserPointTaskHappenedDomainEvent(UserId, PointTaskType.PublishBlog));
         }
 
         /// <summary>
@@ -98,6 +101,14 @@ namespace SmartCqrs.Domain.Models
         public void IncreaseCollectCount()
         {
             CollectCount += 1;
+        }
+
+        /// <summary>
+        /// 博客被评论数量加1
+        /// </summary>
+        public void IncreaseCommentCount()
+        {
+            CommentCount += 1;
         }
 
         #endregion

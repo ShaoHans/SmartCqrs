@@ -17,6 +17,7 @@ namespace SmartCqrs.Repository.EntityConfigurations
             builder.Property(x => x.TotalPoint).IsRequired();
             builder.Property(x => x.PublishBlogCount).IsRequired();
             builder.Property(x => x.CollectBlogCount).IsRequired();
+            builder.Property(x => x.CommentBlogCount).IsRequired();
         }
     }
 }

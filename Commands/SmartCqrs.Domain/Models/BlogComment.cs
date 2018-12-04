@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SmartCqrs.Domain.Events;
 using SmartCqrs.Domain.SeedWork;
 
 namespace SmartCqrs.Domain.Models
@@ -39,6 +40,18 @@ namespace SmartCqrs.Domain.Models
         /// 评论时间
         /// </summary>
         public DateTime CreatedTime { get; set; }
+
+        public BlogComment() { }
+
+        public BlogComment(int blogId, string content, Guid userId)
+        {
+            BlogId = blogId;
+            Content = content;
+            UserId = userId;
+            CreatedTime = DateTime.Now;
+
+            AddDomainEvent(new BlogCommentedDomainEvent(this));
+        }
 
     }
 }

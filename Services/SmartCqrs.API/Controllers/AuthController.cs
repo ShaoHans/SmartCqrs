@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
+using System;
 
 namespace SmartCqrs.API.Controllers
 {
@@ -12,14 +13,14 @@ namespace SmartCqrs.API.Controllers
         {
             get
             {
-                if (HttpContext.Request.Headers.TryGetValue("Authorization", out StringValues authStr))
-                {
-                    var user = JWTHelper.GetClientUser(authStr.ToString());
-                    user.AccessToken = authStr;
-                    return user;
-                }
-                return null;
-                //return new ClientUser { uuid = Guid.Parse("398e76f8-00e8-451c-844a-2902c32dd71e") };
+                //if (HttpContext.Request.Headers.TryGetValue("Authorization", out StringValues authStr))
+                //{
+                //    var user = JWTHelper.GetClientUser(authStr.ToString());
+                //    user.AccessToken = authStr;
+                //    return user;
+                //}
+                //return null;
+                return new ClientUser { UUID = Guid.Parse("745a0510-a80e-4804-94b4-f68f1bc45e69") };
             }
         }
     }

@@ -159,7 +159,7 @@ namespace SmartCqrs.Domain.SeedWork
         /// </summary>
         /// <param name="entity">Entity</param>
         /// <returns>Id of the entity</returns>
-        TPrimaryKey InsertAndGetId(TEntity entity);
+        //TPrimaryKey InsertAndGetId(TEntity entity);
 
         /// <summary>
         /// Inserts a new entity and gets it's Id.
@@ -168,7 +168,7 @@ namespace SmartCqrs.Domain.SeedWork
         /// </summary>
         /// <param name="entity">Entity</param>
         /// <returns>Id of the entity</returns>
-        Task<TPrimaryKey> InsertAndGetIdAsync(TEntity entity);
+        //Task<TPrimaryKey> InsertAndGetIdAsync(TEntity entity);
 
         /// <summary>
         /// Inserts or updates given entity depending on Id's value.
@@ -190,7 +190,7 @@ namespace SmartCqrs.Domain.SeedWork
         /// </summary>
         /// <param name="entity">Entity</param>
         /// <returns>Id of the entity</returns>
-        TPrimaryKey InsertOrUpdateAndGetId(TEntity entity);
+        //TPrimaryKey InsertOrUpdateAndGetId(TEntity entity);
 
         /// <summary>
         /// Inserts or updates given entity depending on Id's value.
@@ -200,7 +200,7 @@ namespace SmartCqrs.Domain.SeedWork
         /// </summary>
         /// <param name="entity">Entity</param>
         /// <returns>Id of the entity</returns>
-        Task<TPrimaryKey> InsertOrUpdateAndGetIdAsync(TEntity entity);
+        //Task<TPrimaryKey> InsertOrUpdateAndGetIdAsync(TEntity entity);
 
         #endregion
 

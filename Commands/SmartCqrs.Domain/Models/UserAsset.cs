@@ -29,6 +29,11 @@ namespace SmartCqrs.Domain.Models
         /// </summary>
         public int CollectBlogCount { get; set; }
 
+        /// <summary>
+        /// 评论的博客文章数量
+        /// </summary>
+        public int CommentBlogCount { get; set; }
+
         #region 领域方法
 
         /// <summary>
@@ -37,9 +42,6 @@ namespace SmartCqrs.Domain.Models
         public void IncreasePublishBlogCount()
         {
             PublishBlogCount += 1;
-
-            // 用户发布了博客后给其添加积分
-            AddDomainEvent(new UserPointTaskHappenedDomainEvent(UserId, PointTaskType.PublishBlog));
         }
 
         /// <summary>
@@ -57,6 +59,14 @@ namespace SmartCqrs.Domain.Models
         public void IncreaseCollectBlogCount()
         {
             CollectBlogCount += 1;
+        }
+
+        /// <summary>
+        /// 用户评论的博客数量加1
+        /// </summary>
+        public void IncreaseCommentBlogCount()
+        {
+            CommentBlogCount += 1;
         }
 
         #endregion

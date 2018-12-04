@@ -31,8 +31,15 @@ namespace SmartCqrs.Application.Commands
                 return new CommandResult(ResultCode.NOT_FOUND, "该博客不存在");
             }
 
+            int count = await _blogCollectRepository.CountAsync(b => b.BlogId == request.BlogId && b.UserId == request.LoginUserId);
+            if (count > 0)
+            {
+                return new CommandResult(ResultCode.FAIL, "您已收藏过该博客");
+            }
+
             var blogCollect = new BlogCollect(request.BlogId, request.LoginUserId);
             await _blogCollectRepository.InsertAsync(blogCollect);
+            await UnitOfWork.SaveChangesAsync();
             return new CommandResult();
         }
     }

@@ -30,9 +30,9 @@ namespace SmartCqrs.Application.Commands
 
             Blog blog = new Blog();
             blog.Publish(request.Title, request.Content, request.CoverUrl, request.LoginUserId);
-            int blogId = await _blogRepository.InsertAndGetIdAsync(blog);
+            await _blogRepository.InsertAsync(blog);
             await UnitOfWork.SaveChangesAsync();
-            return new CommandResult<int>(data: blogId);
+            return new CommandResult<int>(data: blog.Id);
         }
     }
 }

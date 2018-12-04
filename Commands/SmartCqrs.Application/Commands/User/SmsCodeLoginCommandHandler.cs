@@ -51,7 +51,7 @@ namespace SmartCqrs.Application.Commands
                 user = new User();
                 user.Regist(request.Mobile);
                 user.Login();
-                await _userRepository.InsertAndGetIdAsync(user);
+                await _userRepository.InsertAsync(user);
 
                 loginDto.IsNewRegister = true;
             }
@@ -74,6 +74,7 @@ namespace SmartCqrs.Application.Commands
             //}
 
             await UnitOfWork.SaveChangesAsync();
+            //UnitOfWork.SaveChanges();
             //loginDto.AccessToken = tokenResult.Data;
             return new CommandResult<LoginDto>(data: loginDto);
         }
