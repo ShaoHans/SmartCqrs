@@ -1,3 +1,4 @@
+#docker build -t smartcqrs:1.0 -f Services/SmartCqrs.API/Dockerfile --build-arg environment=Development .
 FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
 ARG environment
 
@@ -18,7 +19,7 @@ WORKDIR /src
 #COPY ["Services/SmartCqrs.API/SmartCqrs.API.csproj", "Services/SmartCqrs.API/"]
 #RUN dotnet restore "Services/SmartCqrs.API/SmartCqrs.API.csproj"
 COPY . .
-WORKDIR /SmartCqrs/Services/SmartCqrs.API
+WORKDIR /src/Services/SmartCqrs.API
 RUN dotnet restore "SmartCqrs.API.csproj"
 RUN dotnet build "SmartCqrs.API.csproj" 
 
