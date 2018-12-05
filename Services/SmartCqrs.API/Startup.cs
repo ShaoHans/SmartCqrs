@@ -96,11 +96,11 @@ namespace SmartCqrs.API
 
                 List<string> xmlDocs = new List<string>
                 {
-                    "CarDealerBang.API.xml",
-                    "CarDealerBang.Application.xml",
-                    "CarDealerBang.Query.xml",
-                    "CarDealerBang.Infrastructure.xml",
-                    "CarDealerBang.Enumeration.xml"
+                    "SmartCqrs.API.xml",
+                    "SmartCqrs.Application.xml",
+                    "SmartCqrs.Query.xml",
+                    "SmartCqrs.Infrastructure.xml",
+                    "SmartCqrs.Enumeration.xml"
                 };
                 foreach (var xmlDoc in xmlDocs)
                 {
@@ -125,15 +125,17 @@ namespace SmartCqrs.API
                 })
                 .AddJwtBearer(o =>
                 {
-                    var identityServer = new IdentityServer();
-                    Configuration.GetSection("IdentityServer").Bind(identityServer);
+                    var jwtSettings = new JwtSettings();
+                    Configuration.GetSection("JwtSettings").Bind(jwtSettings);
                     //设置需要验证的项目
                     o.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(identityServer.JwtSecurityKey)),
-                        ValidAudience = "api",
-                        ValidIssuer = "test"
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecurityKey)),
+                        ValidateAudience = true,
+                        ValidAudience = jwtSettings.Audience,
+                        ValidateIssuer = true,
+                        ValidIssuer = jwtSettings.Issuer
                     };
                 });
 

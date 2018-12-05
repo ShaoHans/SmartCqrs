@@ -21,11 +21,11 @@ namespace SmartCqrs.Infrastructure.Auth
         public string GenerateToken(ClientUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_appSettings.IdentityServer.JwtSecurityKey);
+            var key = Encoding.UTF8.GetBytes(_appSettings.JwtSettings.SecurityKey);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Issuer = "test",
-                Audience = "api",
+                Issuer = _appSettings.JwtSettings.Issuer,
+                Audience = _appSettings.JwtSettings.Audience,
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     

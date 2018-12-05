@@ -7,5 +7,7 @@ namespace SmartCqrs.Infrastructure.Configuration
     public class AppSettings
     {
         public IdentityServer IdentityServer { get; set; }
+
+        public JwtSettings JwtSettings { get; set; }
     }
 }
