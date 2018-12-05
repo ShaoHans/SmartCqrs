@@ -77,12 +77,12 @@ namespace SmartCqrs.Repository
                     //}
 
                     // 2.通过反射的方式获取类属性的注解
-                    //var propertyInfo = entity.ClrType.GetProperty(property.Name);
-                    //XmlElement documentation = DocsService.GetXmlFromMember(propertyInfo);
-                    //if (documentation != null && !string.IsNullOrWhiteSpace(documentation.InnerText))
-                    //{
-                    //    property.Npgsql().Comment = documentation.InnerText;
-                    //}
+                    // 对于没有注解的类属性，GetXmlFromMember方法的第二个参数传false，不抛出异常
+                    XmlElement documentation = DocsService.GetXmlFromMember(property.PropertyInfo, false);
+                    if (documentation != null && !string.IsNullOrWhiteSpace(documentation.InnerText))
+                    {
+                        property.Npgsql().Comment = documentation.InnerText.Trim();
+                    }
 
                     // 字段名重命名
                     property.Relational().ColumnName = property.Name.ToSnakeCase();

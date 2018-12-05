@@ -7,6 +7,9 @@ namespace SmartCqrs.Domain.SeedWork
 {
     public abstract class Entity<TPrimaryKey>
     {
+        /// <summary>
+        /// 主键标识
+        /// </summary>
         public TPrimaryKey Id { get; set; }
 
         /// <summary>
