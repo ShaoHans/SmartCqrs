@@ -1,0 +1,42 @@
+﻿version: '3.4'
+
+services:
+  #服务名称
+  smartcqrs.api:
+    #镜像名称
+    image: shaohz/smartcqrs.api:1.0
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+    networks:
+      - smartcqrs-prod
+    ports:
+      #前面时宿主的端口号，后面是镜像的端口号
+      - "9800:8800"
+    depends_on:
+      #依赖postgres数据库服务镜像，只有它先启动，本应用服务才会启动
+      - postgresserver
+
+  postgresserver:
+    #镜像名称，如果docker中不存在该镜像，会去docker中指定的镜像源pull下来
+    image: postgres:11.1
+    restart: always
+    environment:
+         POSTGRES_PASSWORD: 123@456
+         POSTGRES_USER: postgres
+         POSTGRES_DB: smart_blog
+    ports:
+       #只指定一个端口时，该端口代表的是容器的端口，宿主端口随机生成
+       - "5432"
+    volumes:
+      # 把postgres数据库镜像中数据保存的目录挂载到宿主目录/home/pgdb，这样如果postgres数据库容器删除，数据不会跟着删除
+      - /home/pgdb:/var/lib/postgresql/data
+    networks:
+      - smartcqrs-prod
+
+
+networks:
+  smartcqrs-prod:
+    driver: bridge
+
+#volumes:
+  
