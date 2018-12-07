@@ -1,21 +1,40 @@
 ﻿version: '3.4'
 
 services:
-  #服务名称
+  #应用服务名称
   smartcqrs.api:
-    #镜像名称
+    container_name: smartcqrs
+    #镜像名称，已推送到了docker hub上
     image: shaohz/smartcqrs.api:1.0
+    #指定asp.net core应用的环境变量值为Production，则应用启动后会加载 appsettings.Production.json 配置文件
     environment:
       ASPNETCORE_ENVIRONMENT: Production
     networks:
       - smartcqrs-prod
     ports:
       #前面时宿主的端口号，后面是镜像的端口号
-      - "9800:8800"
+      - "8800:8800"
     depends_on:
       #依赖postgres数据库服务镜像，只有它先启动，本应用服务才会启动
       - postgresserver
+  
+  #nginx服务
+  nginxserver:
+    image: nginx
+    restart: always
+    networks:
+      - smartcqrs-prod
+    ports:
+      - "80:80"
+    volumes:
+      - /home/nginx/conf.d:/etc/nginx/conf.d
+      - /home/nginx/log:/var/log/nginx
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /home/nginx/data/:/var/share/nginx/html/  
+    links:
+      - smartcqrs.api:app1
 
+  #postgres数据库服务
   postgresserver:
     #镜像名称，如果docker中不存在该镜像，会去docker中指定的镜像源pull下来
     image: postgres:11.1
