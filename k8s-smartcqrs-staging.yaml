@@ -20,17 +20,17 @@ spec:
         image: 	shaohz/hellodocker:1.0
         ports:
         - containerPort: 80
-
-		#拉取镜像的策略：默认为IfNotPresent，但:latest标签的镜像默认为Always。生产环境中应该尽量避免使用:latest标签，而开发环境中可以借助:latest标签自动拉取最新的镜像。
+        
+        #拉取镜像的策略：默认为IfNotPresent，但:latest标签的镜像默认为Always。生产环境中应该尽量避免使用:latest标签，而开发环境中可以借助:latest标签自动拉取最新的镜像。
         #imagePullPolicy: Always
         #探针：检查容器是否还活着
-		livenessProbe: 
+        livenessProbe: 
           httpGet:
             path: /api/values
             port: 80
           timeoutSeconds: 5
         #探针：检查容器是否能访问，比如数据库服务启动需要一段时间，可使用这种类型的探针检测
-		readinessProbe: 
+        readinessProbe: 
           httpGet:
             path: /healthz
             port: 80
