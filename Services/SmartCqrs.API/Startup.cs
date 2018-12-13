@@ -89,7 +89,7 @@ namespace SmartCqrs.API
                       description.GroupName,
                         new Info()
                         {
-                            Title = $"车商邦app接口{description.ApiVersion}版本",
+                            Title = $"api接口{description.ApiVersion}版本",
                             Version = description.ApiVersion.ToString()
                         });
                 }
@@ -127,7 +127,6 @@ namespace SmartCqrs.API
                 {
                     var jwtSettings = new JwtSettings();
                     Configuration.GetSection("JwtSettings").Bind(jwtSettings);
-                    //设置需要验证的项目
                     o.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
@@ -139,7 +138,6 @@ namespace SmartCqrs.API
                     };
                 });
 
-            //services.AddSingleton<IAuthorizationHandler, CommonAuthorizeHandler>();
             services.AddDbContext<SmartBlogDbContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetConnectionString("SmartBlog"));
@@ -154,14 +152,6 @@ namespace SmartCqrs.API
             services.AddTransient(typeof(ICarQuery), typeof(CarQuery));
             services.AddTransient(typeof(IUserQuery), typeof(UserQuery));
             services.Configure<CommonserviceUrlModel>(Configuration.GetSection("CommonserviceUrl"));
-            //服务授权对象
-            //services.AddSingleton<IServiceAuthorization, ServiceAuthorization>(a =>
-            //{
-            //    Debug.WriteLine("注入服务授权对象");
-            //    var _ConfigModelIdentityServer = new IdentityServer();
-            //    Configuration.GetSection("IdentityServer").Bind(_ConfigModelIdentityServer);
-            //    return new ServiceAuthorization($"{_ConfigModelIdentityServer.AuthTokenUrl}api/auth/", _ConfigModelIdentityServer.ClientId, _ConfigModelIdentityServer.ClientSecret);
-            //});
             MapperInitializer.Init();
 
             services.AddHttpClient();
