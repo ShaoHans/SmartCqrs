@@ -20,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using SmartCqrs.API.Extensions;
 using SmartCqrs.API.Filters;
 using SmartCqrs.Application.Commands;
 using SmartCqrs.Application.Dtos;
@@ -170,6 +171,8 @@ namespace SmartCqrs.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApiVersionDescriptionProvider provider)
         {
+            ServiceLocator.Instance = app.ApplicationServices;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
