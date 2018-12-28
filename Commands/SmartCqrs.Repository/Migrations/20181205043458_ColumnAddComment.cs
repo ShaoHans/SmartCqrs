@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace SmartCqrs.Repository.Migrations
+namespace SmartCqrs.Repository.Postgresql.Migrations
 {
     public partial class ColumnAddComment : Migration
     {

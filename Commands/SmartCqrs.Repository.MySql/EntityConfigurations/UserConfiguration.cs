@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartCqrs.Domain.Models;
 using SmartCqrs.Enumeration;
 
-namespace SmartCqrs.Repository.Postgresql.EntityConfigurations
+namespace SmartCqrs.Repository.MySql.EntityConfigurations
 {
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("user_info");
+            builder.ToTable("user");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.UserId).IsRequired();
             builder.Property(x => x.Mobile).HasColumnType("varchar(16)").IsRequired();

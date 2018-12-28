@@ -8,13 +8,13 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SmartCqrs.Repository.Postgresql.Repositories
+namespace SmartCqrs.Repository.MySql.Repositories
 {
     public class EfCoreRepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey> where TEntity : Entity<TPrimaryKey>, new()
     {
-        private SmartBlogPostgresqlDbContext _dbContext;
+        private SmartBlogMySqlDbContext _dbContext;
 
-        public EfCoreRepositoryBase(SmartBlogPostgresqlDbContext dbContext)
+        public EfCoreRepositoryBase(SmartBlogMySqlDbContext dbContext)
         {
             _dbContext = dbContext;
         }

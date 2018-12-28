@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartCqrs.Enumeration;
-using SmartCqrs.Repository;
+using SmartCqrs.Repository.Postgresql;
 
-namespace SmartCqrs.Repository.Migrations
+namespace SmartCqrs.Repository.Postgresql.Migrations
 {
-    [DbContext(typeof(SmartBlogDbContext))]
+    [DbContext(typeof(SmartBlogPostgresqlDbContext))]
     partial class SmartBlogDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

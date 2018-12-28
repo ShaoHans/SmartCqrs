@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using SmartCqrs.Domain.Models;
 using SmartCqrs.Domain.Repositories;
 
-namespace SmartCqrs.Repository.Postgresql.Repositories
+namespace SmartCqrs.Repository.MySql.Repositories
 {
     public class UserRepository : EfCoreRepositoryBase<User>, IUserRepository
     {
-        public UserRepository(SmartBlogPostgresqlDbContext dbContext) : base(dbContext)
+        public UserRepository(SmartBlogMySqlDbContext dbContext) : base(dbContext)
         {
         }
 

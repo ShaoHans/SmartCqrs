@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SmartCqrs.Repository.Migrations
+namespace SmartCqrs.Repository.Postgresql.Migrations
 {
     public partial class BlogTableAddColumn : Migration
     {

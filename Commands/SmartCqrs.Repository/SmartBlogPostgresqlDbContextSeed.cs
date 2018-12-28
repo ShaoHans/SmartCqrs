@@ -3,11 +3,11 @@ using SmartCqrs.Domain.Models;
 using SmartCqrs.Infrastructure.Log;
 using System.Threading.Tasks;
 
-namespace SmartCqrs.Repository
+namespace SmartCqrs.Repository.Postgresql
 {
-    public class SmartBlogDbContextSeed
+    public class SmartBlogPostgresqlDbContextSeed
     {
-        public async Task SeedAsync(SmartBlogDbContext context, ILoggerManager loggerManager)
+        public async Task SeedAsync(SmartBlogPostgresqlDbContext context, ILoggerManager loggerManager)
         {
             using (context)
             {

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartCqrs.Domain.Models;
 
-namespace SmartCqrs.Repository.EntityConfigurations
+namespace SmartCqrs.Repository.Postgresql.EntityConfigurations
 {
     public class BlogCommentConfiguration : IEntityTypeConfiguration<BlogComment>
     {

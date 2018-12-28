@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SmartCqrs.Domain.Models;
 
-namespace SmartCqrs.Repository.Postgresql.EntityConfigurations
+namespace SmartCqrs.Repository.MySql.EntityConfigurations
 {
     public class UserAssetConfiguration : IEntityTypeConfiguration<UserAsset>
     {

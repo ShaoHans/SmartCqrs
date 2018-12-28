@@ -32,7 +32,7 @@
     <ProjectReference Include="..\..\BuildingBlocks\SmartCqrs.Infrastructure\SmartCqrs.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Commands\SmartCqrs.Application\SmartCqrs.Application.csproj" />
     <ProjectReference Include="..\..\Commands\SmartCqrs.Domain\SmartCqrs.Domain.csproj" />
-    <ProjectReference Include="..\..\Commands\SmartCqrs.Repository\SmartCqrs.Repository.csproj" />
+    <ProjectReference Include="..\..\Commands\SmartCqrs.Repository\SmartCqrs.Repository.Postgresql.csproj" />
     <ProjectReference Include="..\..\Queries\SmartCqrs.Query\SmartCqrs.Query.csproj" />
   </ItemGroup>
 

@@ -3,11 +3,11 @@ using SmartCqrs.Domain.SeedWork;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SmartCqrs.Repository.Postgresql
+namespace SmartCqrs.Repository.MySql
 {
     static class MediatorExtension
     {
-        public static async Task DispatchDomainEventsAsync(this IMediator mediator, SmartBlogPostgresqlDbContext ctx)
+        public static async Task DispatchDomainEventsAsync(this IMediator mediator, SmartBlogMySqlDbContext ctx)
         {
             var domainEntities = ctx.ChangeTracker
                 .Entries<Entity>()

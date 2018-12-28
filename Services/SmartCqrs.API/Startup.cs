@@ -33,8 +33,8 @@ using SmartCqrs.Infrastructure.DapperEx;
 using SmartCqrs.Infrastructure.Log;
 using SmartCqrs.Query.Services;
 using SmartCqrs.Query.Services.Impls;
-using SmartCqrs.Repository;
-using SmartCqrs.Repository.Repositories;
+using SmartCqrs.Repository.Postgresql;
+using SmartCqrs.Repository.Postgresql.Repositories;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SmartCqrs.API
@@ -139,17 +139,17 @@ namespace SmartCqrs.API
                     };
                 });
 
-            services.AddDbContext<SmartBlogDbContext>(options =>
+            services.AddDbContext<SmartBlogPostgresqlDbContext>(options =>
             {
-                options.UseNpgsql(Configuration.GetConnectionString("SmartBlog"));
+                options.UseNpgsql(Configuration.GetConnectionString("SmartBlogPostgresql"));
             });
+            services.AddScoped(sp => { return new DapperContext(Configuration.GetConnectionString("SmartBlogPostgresql")); });
             services.AddMediatR(typeof(BaseCommandHandler).GetTypeInfo().Assembly);
             services.AddScoped<IUnitOfWork, EfCoreUnitOfWork>();
             services.AddTransient(typeof(IRepository<>), typeof(EfCoreRepositoryBase<>));
             services.AddTransient(typeof(IUserRepository), typeof(UserRepository));
             services.AddTransient(typeof(IUserAssetRepository), typeof(UserAssetRepository));
             services.AddSingleton<ILoggerManager, NLoggerManager>();
-            services.AddScoped(sp => { return new DapperContext(Configuration.GetConnectionString("SmartBlog")); });
             services.AddTransient(typeof(ICarQuery), typeof(CarQuery));
             services.AddTransient(typeof(IUserQuery), typeof(UserQuery));
             services.Configure<CommonserviceUrlModel>(Configuration.GetSection("CommonserviceUrl"));
@@ -212,9 +212,9 @@ namespace SmartCqrs.API
             {
                 var services = scope.ServiceProvider;
                 var logger = services.GetRequiredService<ILoggerManager>();
-                var context = services.GetService<SmartBlogDbContext>();
+                var context = services.GetService<SmartBlogPostgresqlDbContext>();
 
-                new SmartBlogDbContextSeed().SeedAsync(context, logger).Wait();
+                new SmartBlogPostgresqlDbContextSeed().SeedAsync(context, logger).Wait();
             }
         }
     }

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 
-namespace SmartCqrs.Repository
+namespace SmartCqrs.Repository.MySql
 {
-    public class SmartBlogDbContext : DbContext
+    public class SmartBlogMySqlDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
 
@@ -21,7 +21,7 @@ namespace SmartCqrs.Repository
 
         public DbSet<BlogCollect> BlogCollects { get; set; }
 
-        public SmartBlogDbContext(DbContextOptions<SmartBlogDbContext> options) : base(options)
+        public SmartBlogMySqlDbContext(DbContextOptions<SmartBlogMySqlDbContext> options) : base(options)
         {
 
         }
@@ -29,9 +29,6 @@ namespace SmartCqrs.Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
-
-            DatabaseMetaDataReName(modelBuilder);
 
             var applyGenericMethod = typeof(ModelBuilder).GetMethods().Where(m => m.Name == "ApplyConfiguration" 
             && m.GetParameters().First().ParameterType.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>)
@@ -51,20 +48,10 @@ namespace SmartCqrs.Repository
             }
         }
 
-        /// <summary>
-        /// 如果是使用PostgreSql，则使用snake_case命名法
-        /// </summary>
-        /// <param name="modelBuilder"></param>
         private void DatabaseMetaDataReName(ModelBuilder modelBuilder)
         {
-            // 参考文章
-            // https://andrewlock.net/customising-asp-net-core-identity-ef-core-naming-conventions-for-postgresql/
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
             {
-
-                //Replace table names
-                entity.Relational().TableName = entity.Relational().TableName.ToSnakeCase();
-
                 // Replace column names            
                 foreach (var property in entity.GetProperties())
                 {
@@ -81,26 +68,8 @@ namespace SmartCqrs.Repository
                     XmlElement documentation = DocsService.GetXmlFromMember(property.PropertyInfo, false);
                     if (documentation != null && !string.IsNullOrWhiteSpace(documentation.InnerText))
                     {
-                        property.Npgsql().Comment = documentation.InnerText.Trim();
+                        //property.Npgsql().Comment = documentation.InnerText.Trim();
                     }
-
-                    // 字段名重命名
-                    property.Relational().ColumnName = property.Name.ToSnakeCase();
-                }
-
-                foreach (var key in entity.GetKeys())
-                {
-                    key.Relational().Name = key.Relational().Name.ToSnakeCase();
-                }
-
-                foreach (var key in entity.GetForeignKeys())
-                {
-                    key.Relational().Name = key.Relational().Name.ToSnakeCase();
-                }
-
-                foreach (var index in entity.GetIndexes())
-                {
-                    index.Relational().Name = index.Relational().Name.ToSnakeCase();
                 }
             }
         }

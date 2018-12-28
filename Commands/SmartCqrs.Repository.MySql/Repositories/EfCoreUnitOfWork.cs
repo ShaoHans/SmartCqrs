@@ -3,18 +3,18 @@ using SmartCqrs.Domain.SeedWork;
 using System;
 using System.Threading.Tasks;
 
-namespace SmartCqrs.Repository.Postgresql.Repositories
+namespace SmartCqrs.Repository.MySql.Repositories
 {
     public class EfCoreUnitOfWork : IUnitOfWork, IDisposable
     {
-        private SmartBlogPostgresqlDbContext _dbContext;
+        private SmartBlogMySqlDbContext _dbContext;
         private IMediator _mediator;
 
         public EfCoreUnitOfWork()
         {
         }
 
-        public EfCoreUnitOfWork(SmartBlogPostgresqlDbContext dbContext, IMediator mediator)
+        public EfCoreUnitOfWork(SmartBlogMySqlDbContext dbContext, IMediator mediator)
         {
             _dbContext = dbContext;
             _mediator = mediator;
