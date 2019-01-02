@@ -86,7 +86,6 @@ namespace SmartCqrs.Domain.Models
         /// <param name="title"></param>
         /// <param name="content"></param>
         /// <param name="coverUrl"></param>
-        /// <param name="userId"></param>
         public void Edit(string title, string content, string coverUrl)
         {
             Title = title;
